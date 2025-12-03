@@ -1,0 +1,10 @@
+# Basic Java 21 configuration
+image: gitpod/workspace-java-21
+
+# VS Code Java extensions
+vscode:
+  extensions:
+    - redhat.java
+    - vscjava.vscode-java-debug
+    - vscjava.vscode-java-test
+    - vscjava.vscode-maven

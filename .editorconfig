@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = utf-8            # Encodage des fichiers
+end_of_line = lf           # Type de fin de ligne (Unix)
+insert_final_newline = true # Ajoute une nouvelle ligne à la fin des fichiers
+indent_style = space       # Utiliser des espaces pour l'indentation
+indent_size = 4            # Taille de l'indentation
+trim_trailing_whitespace = true # Supprime les espaces en fin de ligne
+
+[*.java]
+indent_size = 4            # Java specific indentation rules
+
+[*.xml]
+indent_style = space
+indent_size = 2            # XML utilise une indentation de 2
+
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2            # JSON et YAML utilisent également une indentation de 2
+
+[*.md]
+trim_trailing_whitespace = false  # Retirer cette règle pour Markdown

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.irit.bastide</groupId>
+    <artifactId>ChampollionEnonce</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.release>21</maven.compiler.release>
+      <!-- Versions des dépendances -->
+      <junit.jupiter.version>5.11.4</junit.jupiter.version>
+      <surefire.version>2.22.2</surefire.version>
+      <lombok.version>1.18.38</lombok.version>            <!-- On configure le plugin permettant d'exécuter directement le programme avec maven -->
+            <!-- On pourra exécuter le programme avec : 'mvn exec:java' -->
+        <exec.mainClass>champollion.Main</exec.mainClass>
+            <!-- On configure le plugin permettant de packager le programme et toutes ses dépendances -->
+            <!-- On pourra exécuter le programme sans maven avec : 'java -jar ChampollionENonce-1.0-jar-with-dependencies.jar' -->
+        <assembly.mainClass>champollion.Main</assembly.mainClass>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- Pb. de build sur Mac OS arm ? -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.14</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Pour NetBeans, cf. http://netbeans.apache.org/download/nb120/index.html -->
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco_test</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.10.0</version>
+                <configuration>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Pour télécharger le javadoc des dépendances, exécuter dans un terminal :  -->
+                <!-- mvn dependency:resolve -Dclassifier=javadoc -->
+                <!-- Sur visual studio code, installer l'extension "Docs View" -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.7.1</version> <!-- Utilisez la dernière version disponible -->
+                <executions>
+                    <execution>
+                        <?m2e execute onConfiguration,onIncremental ?>
+                        <id>download-javadocs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>resolve</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+      <!-- Dépendances pour JUnit 5 -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit.jupiter.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- Dépendance pour Lombok -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+</project>

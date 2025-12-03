@@ -1,0 +1,27 @@
+# IntelliJ IDEA-specific files
+.idea/
+*.iml
+*.iws
+
+# Maven/Gradle specific folders
+target/
+build/
+out/
+
+# Logs et config
+*.log
+*.env
+*.properties
+*.bak
+*.tmp
+
+# Lombok
+**/*.lombok.config
+
+# macOS System Files
+.DS_Store
+Thumbs.db
+
+.settings/
+
+.vscode/
